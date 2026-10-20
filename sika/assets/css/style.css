@@ -1,0 +1,213 @@
+/* assets/css/style.css - SIKA Bab 3
+   Urutan: 1 Reset/Base, 2 Variables, 3 Typography, 4 Layout,
+           5 Components, 6 Forms & Tables, 7 Media Queries */
+
+/* 1. Reset / Base */
+* { box-sizing: border-box; }
+html { font-size: 100%; }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--background);
+}
+img { max-width: 100%; height: auto; }
+
+/* 2. Variables (design tokens) */
+:root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e40af;
+    --surface: #ffffff;
+    --background: #f3f4f6;
+    --text: #1f2937;
+    --muted: #4b5563;
+    --border: #d1d5db;
+    --focus: #f59e0b;
+    --error: #b91c1c;
+    --success: #166534;
+    --radius: .75rem;
+    --radius-sm: .4rem;
+    --space-1: .5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2rem;
+}
+
+/* 3. Typography */
+h1 { font-size: 1.75rem; margin: 0 0 var(--space-1); }
+h2 { font-size: 1.25rem; margin-top: 0; }
+p { color: var(--muted); }
+
+/* 4. Layout */
+.container {
+    width: min(100% - 2rem, 1100px);
+    margin-inline: auto;
+}
+header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-2) 0;
+}
+header h1 { color: var(--primary); }
+header p { margin: 0; }
+main { padding-block: var(--space-3); }
+section { margin-block: var(--space-3); }
+footer {
+    border-top: 1px solid var(--border);
+    padding: var(--space-2) 0;
+    text-align: center;
+}
+footer p { margin: 0; }
+
+/* Navigasi: Flexbox (satu dimensi) */
+nav { background: var(--primary); }
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    list-style: none;
+    margin: 0;
+    padding: .6rem 0;
+}
+nav a {
+    display: block;
+    padding: .6rem .8rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: .35rem;
+}
+nav a:hover, nav a:focus { background: var(--primary-dark); }
+nav a[aria-current="page"] {
+    background: var(--primary-dark);
+    text-decoration: underline;   /* penanda aktif tidak hanya warna */
+}
+
+/* Dashboard: Grid (dua dimensi), mobile-first */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+}
+
+/* 5. Components */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-2);
+}
+.card h2 { margin-top: 0; font-size: 1.1rem; }
+
+.profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    background: var(--surface);
+    padding: var(--space-2);
+    border-radius: var(--radius);
+}
+.profile figure { margin: 0; }
+.profile img { max-width: 180px; border-radius: var(--radius); }
+.profile figcaption { font-weight: 600; margin-top: var(--space-1); }
+
+/* 6. Forms & Tables */
+.table-wrapper {
+    overflow-x: auto;
+    background: var(--surface);
+    border-radius: var(--radius);
+}
+table { width: 100%; min-width: 600px; border-collapse: collapse; }
+caption { text-align: left; font-weight: 600; padding: var(--space-1) .75rem; }
+th, td {
+    padding: .75rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+th { background: #eff6ff; color: #1e3a8a; }
+
+form {
+    max-width: 760px;
+    background: var(--surface);
+    padding: 1.25rem;
+    border-radius: var(--radius);
+}
+.form-group { margin-bottom: var(--space-2); }
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 var(--space-2);
+}
+label { display: block; margin-bottom: .35rem; font-weight: 600; }
+input, select, textarea {
+    width: 100%;
+    padding: .7rem .8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font: inherit;
+    background: #fff;
+}
+.hint { display: block; margin-top: .25rem; color: var(--muted); }
+
+fieldset {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin: 0 0 var(--space-2);
+}
+.radio-option { display: flex; align-items: center; gap: .5rem; }
+.radio-option input { width: auto; }
+.radio-option label { display: inline; margin: 0; font-weight: 400; }
+
+/* Focus: selalu terlihat (keyboard) */
+a:focus-visible, input:focus, select:focus, textarea:focus, button:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
+/* Error: border tebal + ikon teks (bukan hanya warna) */
+input:user-invalid, select:user-invalid {
+    border: 2px solid var(--error);
+    border-left-width: 8px;
+}
+.alert {
+    padding: .75rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid;
+    font-weight: 600;
+}
+.alert-error { color: var(--error); border-color: var(--error); background: #fef2f2; }
+.alert-error::before { content: "\26A0  Error: "; }
+.alert-success { color: var(--success); border-color: var(--success); background: #f0fdf4; }
+.alert-success::before { content: "\2713  Berhasil: "; }
+
+.button-group { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+button, input[type="submit"] {
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: .7rem 1rem;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
+button:hover, input[type="submit"]:hover { background: var(--primary-dark); }
+.btn-secondary { background: #374151; }
+.btn-secondary:hover { background: #1f2937; }
+
+/* 7. Media Queries (mobile-first) */
+@media (max-width: 640px) {
+    nav ul { flex-direction: column; }
+}
+@media (min-width: 640px) {
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 700px) {
+    .profile { grid-template-columns: 180px 1fr; }
+}
+@media (min-width: 768px) {
+    .form-row { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px) {
+    .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
+}
